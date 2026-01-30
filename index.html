@@ -3,54 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Epoxy Resin Calculator</title>
-    <!-- Google tag (gtag.js) -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-2DTF9TLBG4"></script>
-        <script>
-                  window.dataLayer = window.dataLayer || [];
-                  function gtag(){dataLayer.push(arguments);}
-                  gtag('js', new Date());
-
-                  gtag('config', 'G-2DTF9TLBG4');
-        </script>
-    <meta name="google-site-verification" content="no5xpETNSsblloaGI4IBaFIjf7UUHoJWEVbl2qJpcTU" />
+    <title>Epoxy Resin Calculator | Free Volume Estimator</title>
     
+    <meta name="description" content="Calculate the exact amount of epoxy resin needed for tables, trays, and art. Free volume calculator with automatic 1:1 mixing ratios and waste buffer.">
+
+    <meta name="google-site-verification" content="no5xpETNSsblloaGI4IBaFIjf7UUHoJWEVbl2qJpcTU" />
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2DTF9TLBG4"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-2DTF9TLBG4');
+    </script>
+
     <style>
-        /* (Same CSS as before) */
         :root { --primary: #2563eb; --bg: #f3f4f6; --surface: #ffffff; }
-        body { font-family: sans-serif; background: var(--bg); display: flex; flex-direction: column; align-items: center; padding: 20px; }
-        .card { background: var(--surface); padding: 2rem; border-radius: 16px; max-width: 450px; width: 100%; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
-        input, select, button { width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 8px; border: 1px solid #ccc; box-sizing: border-box; }
-        button { background: var(--primary); color: white; border: none; font-weight: bold; cursor: pointer; margin-top: 10px; }
-        .affiliate-box { background: #fffbeb; border: 1px solid #fcd34d; padding: 15px; text-align: center; margin-top: 20px; border-radius: 8px; }
-        .affiliate-link { color: #d97706; font-weight: bold; text-decoration: none; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+            background: var(--bg); 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            padding: 20px; 
+            min-height: 100vh;
+            color: #1f2937;
+        }
+        .card { 
+            background: var(--surface); 
+            padding: 2rem; 
+            border-radius: 16px; 
+            max-width: 450px; 
+            width: 100%; 
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); 
+            margin-bottom: 20px;
+        }
+        h1 { margin-top: 0; font-size: 1.5rem; color: var(--primary); text-align: center; }
+        .input-group { margin-bottom: 1rem; } 
+        label { display: block; margin-bottom: 0.5rem; font-weight: 500; }
+        input, select { 
+            width: 100%; 
+            padding: 0.75rem; 
+            border-radius: 8px; 
+            border: 1px solid #d1d5db; 
+            box-sizing: border-box; 
+            font-size: 1rem; 
+        }
+        button { 
+            width: 100%; 
+            padding: 1rem; 
+            background: var(--primary); 
+            color: white; 
+            border: none; 
+            border-radius: 8px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            font-size: 1.1rem; 
+            margin-top: 10px; 
+            transition: opacity 0.2s;
+        }
+        button:hover { opacity: 0.9; }
+        
+        #result {
+            display: none; 
+            margin-top: 20px; 
+            background: #eff6ff; 
+            padding: 15px; 
+            border-radius: 8px;
+            border-left: 5px solid var(--primary);
+        }
+
+        .affiliate-box { 
+            background: #fffbeb; 
+            border: 1px solid #fcd34d; 
+            padding: 15px; 
+            text-align: center; 
+            margin-top: 20px; 
+            border-radius: 8px; 
+            font-size: 0.95rem;
+        }
+        .affiliate-link { 
+            color: #d97706; 
+            font-weight: bold; 
+            text-decoration: none; 
+            display: block;
+            margin-top: 5px;
+        }
+        .affiliate-link:hover { text-decoration: underline; }
+        
+        .footer {
+            text-align: center; 
+            font-size: 0.8rem; 
+            color: #6b7280;
+            margin-top: auto;
+        }
     </style>
 </head>
 <body>
 
 <div class="card">
     <h1>💧 Epoxy Resin Calculator</h1>
+    <p style="text-align:center; color:#666; margin-bottom:20px;">Calculate exactly how much resin you need.</p>
     
     <div class="input-group">
-        <label>Shape</label>
+        <label>Project Shape</label>
         <select id="shape" onchange="toggleShape()">
-            <option value="rect">Rectangle</option>
-            <option value="circle">Circle</option>
+            <option value="rect">Rectangle (Table/Tray)</option>
+            <option value="circle">Circle (Coaster/Art)</option>
         </select>
     </div>
-    <div id="rect-inputs">
-        <input type="number" id="length" placeholder="Length (inches)">
-        <input type="number" id="width" placeholder="Width (inches)">
-    </div>
-    <div id="circle-inputs" style="display:none;">
-        <input type="number" id="diameter" placeholder="Diameter (inches)">
-    </div>
-    <input type="number" id="depth" placeholder="Depth (inches)" step="0.1">
-    
-    <button onclick="calculate()">Calculate</button>
 
-    <div id="result" style="display:none; margin-top: 20px; background: #eff6ff; padding: 15px; border-radius: 8px;">
-        <h3>You need: <span id="totalOz">0</span> fl oz</h3>
+    <div id="rect-inputs">
+        <div class="input-group">
+            <label>Length (inches)</label>
+            <input type="number" id="length" placeholder="e.g. 24">
+        </div>
+        <div class="input-group">
+            <label>Width (inches)</label>
+            <input type="number" id="width" placeholder="e.g. 12">
+        </div>
+    </div>
+
+    <div id="circle-inputs" style="display:none;">
+        <div class="input-group">
+            <label>Diameter (inches)</label>
+            <input type="number" id="diameter" placeholder="e.g. 10">
+        </div>
+    </div>
+
+    <div class="input-group">
+        <label>Depth / Thickness (inches)</label>
+        <input type="number" id="depth" placeholder="e.g. 0.5" step="0.1">
+    </div>
+
+    <button onclick="calculate()">Calculate Volume</button>
+
+    <div id="result">
+        <h3>Total Volume Needed:</h3>
+        <p style="font-size: 1.8rem; font-weight: bold; margin: 10px 0;"><span id="totalOz">0</span> fl oz</p>
+        <hr style="border: 0; border-top: 1px solid #bfdbfe; margin: 10px 0;">
+        <p style="margin: 5px 0;">Part A (Resin): <strong><span id="partA">0</span> oz</strong></p>
+        <p style="margin: 5px 0;">Part B (Hardener): <strong><span id="partB">0</span> oz</strong></p>
+        <small style="color: #666;">(Includes 5% safety buffer for waste)</small>
     </div>
 
     <div class="affiliate-box">
@@ -59,26 +153,44 @@
     </div>
 </div>
 
-<div style="text-align: center; margin-top: 20px; font-size: 0.8rem; color: #666;">
-    &copy; AdaJooniBusiness. <br>
-    This tool is for estimation purposes only.
+<div class="footer">
+    &copy; 2026 AdaJooniBusiness.<br>
+    This tool is for estimation purposes only. Always verify with manufacturer instructions.
 </div>
 
 <script>
-    // (Same Javascript logic as before)
     function toggleShape() {
         const shape = document.getElementById('shape').value;
         document.getElementById('rect-inputs').style.display = shape === 'rect' ? 'block' : 'none';
         document.getElementById('circle-inputs').style.display = shape === 'circle' ? 'block' : 'none';
     }
+
     function calculate() {
         const shape = document.getElementById('shape').value;
         const depth = parseFloat(document.getElementById('depth').value);
-        let vol = 0;
-        if (shape === 'rect') vol = document.getElementById('length').value * document.getElementById('width').value * depth;
-        else vol = Math.PI * Math.pow(document.getElementById('diameter').value/2, 2) * depth;
-        if(vol > 0) {
-            document.getElementById('totalOz').innerText = ((vol * 0.554) * 1.05).toFixed(1);
+        let volumeCubicInches = 0;
+
+        if (shape === 'rect') {
+            const l = parseFloat(document.getElementById('length').value);
+            const w = parseFloat(document.getElementById('width').value);
+            if(l && w && depth) volumeCubicInches = l * w * depth;
+        } else {
+            const d = parseFloat(document.getElementById('diameter').value);
+            const radius = d / 2;
+            if(d && depth) volumeCubicInches = Math.PI * (radius * radius) * depth;
+        }
+
+        if (volumeCubicInches > 0) {
+            // Convert Cubic Inches to Fluid Ounces (1 cubic inch = 0.554 fl oz)
+            // Add 5% safety buffer
+            const totalOz = (volumeCubicInches * 0.554) * 1.05;
+            
+            // Assume 1:1 Mixing Ratio
+            const part = totalOz / 2;
+
+            document.getElementById('totalOz').innerText = totalOz.toFixed(1);
+            document.getElementById('partA').innerText = part.toFixed(1);
+            document.getElementById('partB').innerText = part.toFixed(1);
             document.getElementById('result').style.display = 'block';
         }
     }
