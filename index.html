@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Epoxy Resin Calculator</title>
+    
+    <style>
+        /* (Same CSS as before) */
+        :root { --primary: #2563eb; --bg: #f3f4f6; --surface: #ffffff; }
+        body { font-family: sans-serif; background: var(--bg); display: flex; flex-direction: column; align-items: center; padding: 20px; }
+        .card { background: var(--surface); padding: 2rem; border-radius: 16px; max-width: 450px; width: 100%; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+        input, select, button { width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 8px; border: 1px solid #ccc; box-sizing: border-box; }
+        button { background: var(--primary); color: white; border: none; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        .affiliate-box { background: #fffbeb; border: 1px solid #fcd34d; padding: 15px; text-align: center; margin-top: 20px; border-radius: 8px; }
+        .affiliate-link { color: #d97706; font-weight: bold; text-decoration: none; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h1>💧 Epoxy Resin Calculator</h1>
+    
+    <div class="input-group">
+        <label>Shape</label>
+        <select id="shape" onchange="toggleShape()">
+            <option value="rect">Rectangle</option>
+            <option value="circle">Circle</option>
+        </select>
+    </div>
+    <div id="rect-inputs">
+        <input type="number" id="length" placeholder="Length (inches)">
+        <input type="number" id="width" placeholder="Width (inches)">
+    </div>
+    <div id="circle-inputs" style="display:none;">
+        <input type="number" id="diameter" placeholder="Diameter (inches)">
+    </div>
+    <input type="number" id="depth" placeholder="Depth (inches)" step="0.1">
+    
+    <button onclick="calculate()">Calculate</button>
+
+    <div id="result" style="display:none; margin-top: 20px; background: #eff6ff; padding: 15px; border-radius: 8px;">
+        <h3>You need: <span id="totalOz">0</span> fl oz</h3>
+    </div>
+
+    <div class="affiliate-box">
+        Recommended Resin for this project:<br>
+        <a href="YOUR_AMAZON_LINK_HERE" class="affiliate-link" target="_blank" rel="nofollow">
+            👉 Check Price on Amazon
+        </a>
+    </div>
+</div>
+
+<div style="text-align: center; margin-top: 20px; font-size: 0.8rem; color: #666;">
+    &copy; 2026 Your Company Name. <br>
+    This tool is for estimation purposes only.
+</div>
+
+<script>
+    // (Same Javascript logic as before)
+    function toggleShape() {
+        const shape = document.getElementById('shape').value;
+        document.getElementById('rect-inputs').style.display = shape === 'rect' ? 'block' : 'none';
+        document.getElementById('circle-inputs').style.display = shape === 'circle' ? 'block' : 'none';
+    }
+    function calculate() {
+        const shape = document.getElementById('shape').value;
+        const depth = parseFloat(document.getElementById('depth').value);
+        let vol = 0;
+        if (shape === 'rect') vol = document.getElementById('length').value * document.getElementById('width').value * depth;
+        else vol = Math.PI * Math.pow(document.getElementById('diameter').value/2, 2) * depth;
+        if(vol > 0) {
+            document.getElementById('totalOz').innerText = ((vol * 0.554) * 1.05).toFixed(1);
+            document.getElementById('result').style.display = 'block';
+        }
+    }
+</script>
+
+</body>
+</html>
